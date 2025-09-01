@@ -38,11 +38,11 @@ public class DynamicSuiteGenerator {
 
             List<String> listeners = new ArrayList<>();
             if ("yes".equalsIgnoreCase(System.getProperty("isRetry"))) {
-                listeners.add("org.utility.RetryAnalyzer");
+                listeners.add("listeners.RetryAnalyzer");
             }
-            listeners.add("org.utility.TestListener");
-            listeners.add("org.utility.CutsomHTMLReport");
-            listeners.add("org.utility.NoProdMethodSkipper");
+            listeners.add("listeners.TestListener");
+            listeners.add("reporting.NewCutsomHTMLReport");
+            listeners.add("listeners.NoProdMethodSkipper");
             suite.setListeners(listeners);
 
             Map<String, String> parameters = new LinkedHashMap<>();
