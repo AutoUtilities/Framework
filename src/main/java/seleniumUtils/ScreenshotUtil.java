@@ -74,6 +74,23 @@ public class ScreenshotUtil extends WaitUtil {
         }
         return screenshotPath;
     }
+    
+    public static synchronized void takeScreenshot()
+	{
+		try
+		{
+			// Directly capture as Base64
+			String base64Screenshot = ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BASE64);
+
+			// Embed in report
+			ExtentManager.getTest().log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromBase64String(base64Screenshot).build());
+			ExtentManager.getTest().info("<img src='data:image/png;base64," + base64Screenshot + "' height='400' width='800'/>");
+
+		} catch (Exception e)
+		{
+			ExtentManager.getTest().log(Status.WARNING, "Failed to take screenshot: " + e.getMessage());
+		}
+	}
 
     /**
      * Highlight element by adding red border using JavaScript.
